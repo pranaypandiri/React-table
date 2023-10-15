@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Data</title>
+    <style>
+    body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+        table {
+            width: 70%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:nth-child(odd) {
+            background-color: #fff;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>User Data</h1>
+    <table id="user-table">
+        <tr>
+            <th>ID</th>
+            <th>FirstName</th>
+            <th>LastName</th>
+            <th>MaidenName</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Phone</th>
+        </tr>
+    </table>
+
+    <script>
+        // Function to fetch and display user data
+        function fetchUserData() {
+            fetch('https://dummyjson.com/users')
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.users && Array.isArray(data.users)) {
+                        const userTable = document.getElementById('user-table');
+                        data.users.forEach(user => {
+                            const row = userTable.insertRow(-1);
+                            const cell1 = row.insertCell(0);
+                            const cell2 = row.insertCell(1);
+                            const cell3 = row.insertCell(2);
+                            const cell4 = row.insertCell(3);
+                            const cell5 = row.insertCell(4);
+                            const cell6 = row.insertCell(5);
+                            const cell7 = row.insertCell(6);
+                            const cell8 = row.insertCell(7);
+                            cell1.textContent = user.id;
+                            cell2.textContent = user.firstName;
+                            cell3.textContent = user.lastName;
+                            cell4.textContent = user.maidenName;
+                            cell5.textContent = user.age;
+                            cell6.textContent = user.gender;
+                            cell7.textContent = user.email;
+                            cell8.textContent = user.phone;
+                        });
+                    } else {
+                        console.error('Data format is not as expected:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching user data:', error);
+                });
+        }
+
+        // Call the fetchUserData function when the page loads
+        window.onload = fetchUserData;
+    </script>
+</body>
+</html>
